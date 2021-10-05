@@ -1,5 +1,6 @@
 package com.example.todoapp.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.todoapp.model.Todo
 
@@ -24,4 +25,7 @@ interface TodoDao {
 
     @Delete
     suspend fun deleteTodo(todo: Todo)
+
+    @Query("SELECT * FROM todos ORDER BY id DESC")
+    fun getAllTodos(): LiveData<List<Todo>>
 }
