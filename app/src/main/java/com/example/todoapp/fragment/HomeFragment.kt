@@ -26,7 +26,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             false
         )
 
-        Log.e("!!","Done")
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -34,7 +33,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.fabAddTodo.setOnClickListener {
-            it.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToNewTodoFragment())
+            it.findNavController()
+                .navigate(HomeFragmentDirections.actionHomeFragmentToNewTodoFragment())
         }
     }
 

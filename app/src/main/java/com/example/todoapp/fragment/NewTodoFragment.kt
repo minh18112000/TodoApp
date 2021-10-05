@@ -1,33 +1,104 @@
 package com.example.todoapp.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import com.example.todoapp.MainActivity
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentNewTodoBinding
+import com.example.todoapp.model.Todo
+import com.example.todoapp.toast
+import com.example.todoapp.viewmodel.TodoViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class NewTodoFragment : Fragment(R.layout.fragment_new_todo) {
 
+    // create binding object
     private var _binding: FragmentNewTodoBinding? = null
     private val binding
         get() = _binding!!
+
+    private lateinit var todoViewModel: TodoViewModel
+    private lateinit var mView: View
+    private var importantLevel: Int = 1
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mView = view
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
+        // inflate the Fragment's view
+        // (which is equivalent to using setContentView() for an Activity)
         _binding = FragmentNewTodoBinding.inflate(
             inflater,
             container,
             false
         )
 
+        todoViewModel = (activity as MainActivity).todoViewModel
 
+        binding.imgImportantLevelOne.setOnClickListener {
+            binding.imgImportantLevelOne.setImageResource(R.drawable.ic_done)
+            binding.imgImportantLevelTwo.setImageResource(0)
+            binding.imgImportantLevelThree.setImageResource(0)
+            importantLevel = 1
+        }
+
+        binding.imgImportantLevelTwo.setOnClickListener {
+            binding.imgImportantLevelTwo.setImageResource(R.drawable.ic_done)
+            binding.imgImportantLevelOne.setImageResource(0)
+            binding.imgImportantLevelThree.setImageResource(0)
+            importantLevel = 2
+        }
+
+        binding.imgImportantLevelThree.setOnClickListener {
+            binding.imgImportantLevelThree.setImageResource(R.drawable.ic_done)
+            binding.imgImportantLevelTwo.setImageResource(0)
+            binding.imgImportantLevelOne.setImageResource(0)
+            importantLevel = 3
+        }
 
         setHasOptionsMenu(true)
 
         return binding.root
+    }
+
+    private fun saveTodo(view: View) {
+        val todoTitle = binding.etTodoTitle.text.toString().trim()
+        val todoImportantLevel = importantLevel
+
+        if (todoTitle.isNotEmpty()) {
+
+            // create new item
+            val todo = Todo(0, todoTitle, todoImportantLevel)
+            todoViewModel.addTodo(todo)
+            Snackbar.make(
+                view,
+                "Todo saved successfully",
+                Snackbar.LENGTH_SHORT
+            ).show()
+
+            view.findNavController()
+                .navigate(NewTodoFragmentDirections.actionNewTodoFragmentToHomeFragment())
+        } else {
+            activity?.toast("Please enter todo title!")
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.save_menu -> {
+                saveTodo(mView)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
