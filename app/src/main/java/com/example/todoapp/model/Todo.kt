@@ -8,5 +8,5 @@ data class Todo(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val todoTitle: String,
-    val importantLevel: String
+    val importantLevel: Int
 )

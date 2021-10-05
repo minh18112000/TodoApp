@@ -32,17 +32,20 @@
                     android:layout_marginTop="10dp">
 
                     <ImageView
+                        android:id="@+id/imgImportantLevelOne"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:background="@drawable/yellow_dot" />
 
                     <ImageView
+                        android:id="@+id/imgImportantLevelTwo"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="20dp"
                         android:background="@drawable/origin_dot" />
 
                     <ImageView
+                        android:id="@+id/imgImportantLevelThree"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="20dp"
@@ -69,7 +72,7 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_done"
+        android:id="@+id/fabUpdateTodo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
