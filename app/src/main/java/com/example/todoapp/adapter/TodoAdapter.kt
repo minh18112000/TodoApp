@@ -46,7 +46,7 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
         if (currentTodo.importantLevel == 1) {
             holder.itemBinding.imgImportantLevel.setImageResource(R.drawable.yellow_dot)
         } else if (currentTodo.importantLevel == 2) {
-            holder.itemBinding.imgImportantLevel.setImageResource(R.drawable.origin_dot)
+            holder.itemBinding.imgImportantLevel.setImageResource(R.drawable.blue_dot)
         } else {
             holder.itemBinding.imgImportantLevel.setImageResource(R.drawable.red_dot)
         }

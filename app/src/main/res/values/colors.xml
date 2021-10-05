@@ -7,9 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="red">#FF0000</color>
-    <color name="origin">#FF5722</color>
-    <color name="yellow">#FFEB3B</color>
+    <color name="red">#9F2929</color>
+    <color name="blue">#3F51B5</color>
+    <color name="yellow">#CDDC39</color>
 
     <color name="colorPrimary">#803c94</color>
     <color name="colorPrimaryDark">#803c94</color>

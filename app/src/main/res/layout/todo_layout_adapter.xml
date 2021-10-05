@@ -25,7 +25,9 @@
         android:gravity="center_vertical"
         android:maxLines="1"
         android:textColor="@color/black"
-        tools:text="Example item" />
+        tools:text="Example item"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
 
     <ImageView
         android:id="@+id/imgImportantLevel"
