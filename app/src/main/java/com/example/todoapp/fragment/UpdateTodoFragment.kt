@@ -1,5 +1,6 @@
 package com.example.todoapp.fragment
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -91,12 +92,36 @@ class UpdateTodoFragment : Fragment(R.layout.fragment_update_todo) {
             }
         }
 
+        setHasOptionsMenu(true)
+
         return binding.root
+    }
+
+    private fun deleteTodo() {
+        AlertDialog.Builder(activity).apply {
+            setTitle("Delete Todo")
+            setMessage("Are you sure want to permanently delete this todo?")
+            setPositiveButton("DELETE") { _, _ ->
+                todoViewModel.deleteTodo(currentTodo)
+
+                view?.findNavController()?.navigate(
+                    UpdateTodoFragmentDirections.actionUpdateTodoFragmentToHomeFragment()
+                )
+            }
+            setNegativeButton("CANCEL", null)
+        }.create().show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.update_todo_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.delete_menu -> deleteTodo()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroy() {
