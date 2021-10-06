@@ -30,4 +30,12 @@ class TodoViewModel(
     fun sortTodoByCreatedDateNewestFirst() = todoRepository.sortTodoByCreatedDateNewestFirst()
 
     fun sortTodoByCreatedDateOldestFirst() = todoRepository.sortTodoByCreatedDateOldestFirst()
+
+    fun sortTodoByTitleAZ() = todoRepository.sortTodoByTitleAZ()
+
+    fun sortTodoByTitleZA() = todoRepository.sortTodoByTitleZA()
+
+    fun sortTodoByUpdatedDateNewestFirst() = todoRepository.sortTodoByUpdatedDateNewestFirst()
+
+    fun sortTodoByUpdatedDateOldestFirst() = todoRepository.sortTodoByUpdatedDateOldestFirst()
 }

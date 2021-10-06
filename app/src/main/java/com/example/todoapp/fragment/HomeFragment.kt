@@ -115,15 +115,43 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
 
     private fun sortTodoByCreatedDateNewestFirst() {
         todoViewModel.sortTodoByCreatedDateNewestFirst()
-            .observe(viewLifecycleOwner, { todoItem ->
-                todoAdapter.differ.submitList(todoItem)
+            .observe(viewLifecycleOwner, { todo ->
+                todoAdapter.differ.submitList(todo)
             })
     }
 
     private fun sortTodoByCreatedDateOldestFirst() {
         todoViewModel.sortTodoByCreatedDateOldestFirst()
-            .observe(viewLifecycleOwner, { todoItem ->
-                todoAdapter.differ.submitList(todoItem)
+            .observe(viewLifecycleOwner, { todo ->
+                todoAdapter.differ.submitList(todo)
+            })
+    }
+
+    private fun sortTodoByTitleAZ() {
+        todoViewModel.sortTodoByTitleAZ()
+            .observe(viewLifecycleOwner, { todo ->
+                todoAdapter.differ.submitList(todo)
+            })
+    }
+
+    private fun sortTodoByTitleZA() {
+        todoViewModel.sortTodoByTitleZA()
+            .observe(viewLifecycleOwner, { todo ->
+                todoAdapter.differ.submitList(todo)
+            })
+    }
+
+    private fun sortTodoByUpdatedDateNewestFirst() {
+        todoViewModel.sortTodoByUpdatedDateNewestFirst()
+            .observe(viewLifecycleOwner, { todo ->
+                todoAdapter.differ.submitList(todo)
+            })
+    }
+
+    private fun sortTodoByUpdatedDateOldestFirst() {
+        todoViewModel.sortTodoByUpdatedDateOldestFirst()
+            .observe(viewLifecycleOwner, { todo ->
+                todoAdapter.differ.submitList(todo)
             })
     }
 
@@ -131,6 +159,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
         when (item.itemId) {
             R.id.sort_by_created_date_newest_first -> sortTodoByCreatedDateNewestFirst()
             R.id.sort_by_created_date_oldest_first -> sortTodoByCreatedDateOldestFirst()
+            R.id.sort_by_title_az -> sortTodoByTitleAZ()
+            R.id.sort_by_title_za -> sortTodoByTitleZA()
+            R.id.sort_by_updated_date_newest_first -> sortTodoByUpdatedDateNewestFirst()
+            R.id.sort_by_updated_date_oldest_first -> sortTodoByUpdatedDateOldestFirst()
         }
         return super.onOptionsItemSelected(item)
     }

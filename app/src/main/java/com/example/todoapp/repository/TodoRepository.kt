@@ -19,4 +19,11 @@ class TodoRepository(private val db: TodoDatabase) {
 
     fun sortTodoByCreatedDateOldestFirst() = db.getTodoDao().sortTodoByCreatedDateOldestFirst()
 
+    fun sortTodoByTitleAZ() = db.getTodoDao().sortTodoByTitleAZ()
+
+    fun sortTodoByTitleZA() = db.getTodoDao().sortTodoByTitleZA()
+
+    fun sortTodoByUpdatedDateNewestFirst() = db.getTodoDao().sortTodoByUpdatedDateNewestFirst()
+
+    fun sortTodoByUpdatedDateOldestFirst() = db.getTodoDao().sortTodoByUpdatedDateOldestFirst()
 }

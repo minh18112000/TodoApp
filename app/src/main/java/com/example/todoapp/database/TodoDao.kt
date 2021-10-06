@@ -38,5 +38,16 @@ interface TodoDao {
     @Query("SELECT * FROM todos ORDER BY dateCreated ASC")
     fun sortTodoByCreatedDateOldestFirst(): LiveData<List<Todo>>
 
+    @Query("SELECT * FROM todos ORDER BY todoTitle ASC")
+    fun sortTodoByTitleAZ(): LiveData<List<Todo>>
+
+    @Query("SELECT * FROM todos ORDER BY todoTitle DESC")
+    fun sortTodoByTitleZA(): LiveData<List<Todo>>
+
+    @Query("SELECT * FROM todos ORDER BY dateUpdated DESC")
+    fun sortTodoByUpdatedDateNewestFirst(): LiveData<List<Todo>>
+
+    @Query("SELECT * FROM todos ORDER BY dateUpdated ASC")
+    fun sortTodoByUpdatedDateOldestFirst(): LiveData<List<Todo>>
 
 }
