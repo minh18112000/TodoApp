@@ -3,10 +3,12 @@ package com.example.todoapp.fragment
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.example.todoapp.MainActivity
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentUpdateTodoBinding
 import com.example.todoapp.model.Todo
+import com.example.todoapp.toast
 import com.example.todoapp.viewmodel.TodoViewModel
 
 class UpdateTodoFragment : Fragment(R.layout.fragment_update_todo) {
@@ -70,6 +72,23 @@ class UpdateTodoFragment : Fragment(R.layout.fragment_update_todo) {
             binding.imgImportantLevelTwo.setImageResource(0)
             binding.imgImportantLevelOne.setImageResource(0)
             importantLevel = 3
+        }
+
+        binding.fabUpdateTodo.setOnClickListener {
+            val todoTitle = binding.etTodoTitle.text.toString().trim()
+
+            if(todoTitle.isNotEmpty()) {
+                val todo = Todo(currentTodo.id, todoTitle, importantLevel)
+                todoViewModel.updateTodo(todo)
+
+                activity?.toast("Todo updated!")
+
+                val direction = UpdateTodoFragmentDirections
+                    .actionUpdateTodoFragmentToHomeFragment()
+                view?.findNavController()?.navigate(direction)
+            } else {
+                activity?.toast("Please enter title!")
+            }
         }
 
         return binding.root
