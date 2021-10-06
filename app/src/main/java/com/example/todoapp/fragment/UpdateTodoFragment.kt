@@ -1,6 +1,7 @@
 package com.example.todoapp.fragment
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -97,6 +98,23 @@ class UpdateTodoFragment : Fragment(R.layout.fragment_update_todo) {
         return binding.root
     }
 
+    // create share Intent
+    private fun getShareIntent() : Intent {
+        val args = UpdateTodoFragmentArgs.fromBundle(requireArguments())
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.setType("text/plain")
+            .putExtra(
+                Intent.EXTRA_TEXT,
+                "Todo shared: ${args.todo?.todoTitle}, ${args.todo?.importantLevel}"
+            )
+        return shareIntent
+    }
+
+    // starting an activity with new Intent
+    private fun shareSuccess() {
+        startActivity(getShareIntent())
+    }
+
     private fun deleteTodo() {
         AlertDialog.Builder(activity).apply {
             setTitle("Delete Todo")
@@ -115,11 +133,17 @@ class UpdateTodoFragment : Fragment(R.layout.fragment_update_todo) {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.update_todo_menu, menu)
+
+        // showing the Share Menu Item dynamically
+        if(getShareIntent().resolveActivity(requireActivity().packageManager) == null) {
+            menu.findItem(R.id.share_menu).isVisible = false
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.delete_menu -> deleteTodo()
+            R.id.share_menu -> shareSuccess()
         }
         return super.onOptionsItemSelected(item)
     }
