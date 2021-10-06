@@ -38,4 +38,10 @@ class TodoViewModel(
     fun sortTodoByUpdatedDateNewestFirst() = todoRepository.sortTodoByUpdatedDateNewestFirst()
 
     fun sortTodoByUpdatedDateOldestFirst() = todoRepository.sortTodoByUpdatedDateOldestFirst()
+
+    fun filterTodoByImportantLevelLow() = todoRepository.filterTodoByImportantLevelLow()
+
+    fun filterTodoByImportantLevelMedium() = todoRepository.filterTodoByImportantLevelMedium()
+
+    fun filterTodoByImportantLevelHigh() = todoRepository.filterTodoByImportantLevelHigh()
 }

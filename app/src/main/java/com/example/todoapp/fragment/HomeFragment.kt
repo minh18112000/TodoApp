@@ -36,6 +36,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
 
         todoViewModel = (activity as MainActivity).todoViewModel
 
+        filterTodoByImportantLevelLow()
+        filterTodoByImportantLevelMedium()
+        filterTodoByImportantLevelHigh()
+
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -159,6 +163,30 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
         todoViewModel.getAllTodos().observe(viewLifecycleOwner, { todo ->
             todoAdapter.differ.submitList(todo)
         })
+    }
+
+    private fun filterTodoByImportantLevelLow() {
+        binding.tvFilterLow.setOnClickListener {
+            todoViewModel.filterTodoByImportantLevelLow().observe(viewLifecycleOwner, { todo ->
+                todoAdapter.differ.submitList(todo)
+            })
+        }
+    }
+
+    private fun filterTodoByImportantLevelMedium() {
+        binding.tvFilterMedium.setOnClickListener {
+            todoViewModel.filterTodoByImportantLevelMedium().observe(viewLifecycleOwner, { todo ->
+                todoAdapter.differ.submitList(todo)
+            })
+        }
+    }
+
+    private fun filterTodoByImportantLevelHigh() {
+        binding.tvFilterHigh.setOnClickListener {
+            todoViewModel.filterTodoByImportantLevelHigh().observe(viewLifecycleOwner, { todo ->
+                todoAdapter.differ.submitList(todo)
+            })
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

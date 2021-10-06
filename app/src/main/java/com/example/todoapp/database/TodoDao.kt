@@ -50,4 +50,13 @@ interface TodoDao {
     @Query("SELECT * FROM todos ORDER BY dateUpdated ASC")
     fun sortTodoByUpdatedDateOldestFirst(): LiveData<List<Todo>>
 
+    @Query("SELECT * FROM todos WHERE importantLevel = 1")
+    fun filterTodoByImportantLevelLow(): LiveData<List<Todo>>
+
+    @Query("SELECT * FROM todos WHERE importantLevel = 2")
+    fun filterTodoByImportantLevelMedium(): LiveData<List<Todo>>
+
+    @Query("SELECT * FROM todos WHERE importantLevel = 3")
+    fun filterTodoByImportantLevelHigh(): LiveData<List<Todo>>
+
 }
