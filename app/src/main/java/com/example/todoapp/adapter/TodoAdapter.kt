@@ -2,11 +2,13 @@ package com.example.todoapp.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
 import com.example.todoapp.databinding.TodoLayoutAdapterBinding
+import com.example.todoapp.fragment.HomeFragmentDirections
 import com.example.todoapp.model.Todo
 
 class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
@@ -49,6 +51,10 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
             holder.itemBinding.imgImportantLevel.setImageResource(R.drawable.blue_dot)
         } else {
             holder.itemBinding.imgImportantLevel.setImageResource(R.drawable.red_dot)
+        }
+        holder.itemView.setOnClickListener {
+            val direction = HomeFragmentDirections.actionHomeFragmentToUpdateTodoFragment(currentTodo)
+            it.findNavController().navigate(direction)
         }
     }
 
