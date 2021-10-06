@@ -8,3 +8,5 @@ In this app, I use:
 - SearchView
 - RecyclerView
 - Repository
+Feature in this app:
+- Add, update, delete note
