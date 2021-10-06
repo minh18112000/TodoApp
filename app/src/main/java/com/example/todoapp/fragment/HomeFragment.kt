@@ -155,6 +155,12 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
             })
     }
 
+    private fun noSort() {
+        todoViewModel.getAllTodos().observe(viewLifecycleOwner, { todo ->
+            todoAdapter.differ.submitList(todo)
+        })
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.sort_by_created_date_newest_first -> sortTodoByCreatedDateNewestFirst()
@@ -163,6 +169,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
             R.id.sort_by_title_za -> sortTodoByTitleZA()
             R.id.sort_by_updated_date_newest_first -> sortTodoByUpdatedDateNewestFirst()
             R.id.sort_by_updated_date_oldest_first -> sortTodoByUpdatedDateOldestFirst()
+            R.id.no_sort -> noSort()
         }
         return super.onOptionsItemSelected(item)
     }

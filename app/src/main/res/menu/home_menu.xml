@@ -39,6 +39,9 @@
                 android:id="@+id/sort_by_updated_date_oldest_first"
                 android:title="Updated date (oldest first)" />
 
+            <item
+                android:id="@+id/no_sort"
+                android:title="No sort" />
         </menu>
 
     </item>
