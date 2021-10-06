@@ -7,4 +7,22 @@
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_search"
         android:title="Search" />
+
+    <item
+        android:id="@+id/sort_menu"
+        android:icon="@drawable/ic_sort"
+        android:title="Sort"
+        app:showAsAction="ifRoom">
+
+        <menu>
+            <item
+                android:id="@+id/sort_by_created_date_newest_first"
+                android:title="Created date (newest first)" />
+
+            <item
+                android:id="@+id/sort_by_created_date_oldest_first"
+                android:title="Created date (oldest first)" />
+        </menu>
+
+    </item>
 </menu>

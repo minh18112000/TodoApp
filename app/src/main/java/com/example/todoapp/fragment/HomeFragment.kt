@@ -113,6 +113,28 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
         })
     }
 
+    private fun sortTodoByCreatedDateNewestFirst() {
+        todoViewModel.sortTodoByCreatedDateNewestFirst()
+            .observe(viewLifecycleOwner, { todoItem ->
+                todoAdapter.differ.submitList(todoItem)
+            })
+    }
+
+    private fun sortTodoByCreatedDateOldestFirst() {
+        todoViewModel.sortTodoByCreatedDateOldestFirst()
+            .observe(viewLifecycleOwner, { todoItem ->
+                todoAdapter.differ.submitList(todoItem)
+            })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.sort_by_created_date_newest_first -> sortTodoByCreatedDateNewestFirst()
+            R.id.sort_by_created_date_oldest_first -> sortTodoByCreatedDateOldestFirst()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

@@ -26,4 +26,8 @@ class TodoViewModel(
     fun getAllTodos() = todoRepository.getAllTodos()
 
     fun searchTodo(query: String?) = todoRepository.searchTodo(query)
+
+    fun sortTodoByCreatedDateNewestFirst() = todoRepository.sortTodoByCreatedDateNewestFirst()
+
+    fun sortTodoByCreatedDateOldestFirst() = todoRepository.sortTodoByCreatedDateOldestFirst()
 }

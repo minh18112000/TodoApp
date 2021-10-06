@@ -14,4 +14,9 @@ class TodoRepository(private val db: TodoDatabase) {
     fun getAllTodos() = db.getTodoDao().getAllTodos()
 
     fun searchTodo(query: String?) = db.getTodoDao().searchTodo(query)
+
+    fun sortTodoByCreatedDateNewestFirst() = db.getTodoDao().sortTodoByCreatedDateNewestFirst()
+
+    fun sortTodoByCreatedDateOldestFirst() = db.getTodoDao().sortTodoByCreatedDateOldestFirst()
+
 }
