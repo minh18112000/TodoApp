@@ -24,4 +24,6 @@ class TodoViewModel(
     }
 
     fun getAllTodos() = todoRepository.getAllTodos()
+
+    fun searchTodo(query: String?) = todoRepository.searchTodo(query)
 }

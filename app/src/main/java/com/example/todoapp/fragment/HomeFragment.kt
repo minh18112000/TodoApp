@@ -1,8 +1,8 @@
 package com.example.todoapp.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -13,7 +13,7 @@ import com.example.todoapp.databinding.FragmentHomeBinding
 import com.example.todoapp.model.Todo
 import com.example.todoapp.viewmodel.TodoViewModel
 
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextListener {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding
@@ -73,7 +73,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun updateUi(todos: List<Todo>) {
-        if(todos.isNotEmpty()) {
+        if (todos.isNotEmpty()) {
             binding.cardView.visibility = View.GONE
             binding.recyclerView.visibility = View.VISIBLE
         } else {
@@ -85,11 +85,36 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.home_menu, menu)
+
+        val menuSearch = menu.findItem(R.id.menu_search).actionView as SearchView
+        menuSearch.isSubmitButtonEnabled = false
+        menuSearch.setOnQueryTextListener(this)
+    }
+
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (query != null) {
+            searchTodo(query)
+        }
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        if (newText != null) {
+            searchTodo(newText)
+        }
+        return true
+    }
+
+    private fun searchTodo(query: String?) {
+        val searchQuery = "%$query%"
+        todoViewModel.searchTodo(searchQuery).observe(this, { list ->
+            todoAdapter.differ.submitList(list)
+        })
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
 }

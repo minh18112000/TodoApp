@@ -12,4 +12,6 @@ class TodoRepository(private val db: TodoDatabase) {
     suspend fun deleteTodo(todo: Todo) = db.getTodoDao().deleteTodo(todo)
 
     fun getAllTodos() = db.getTodoDao().getAllTodos()
+
+    fun searchTodo(query: String?) = db.getTodoDao().searchTodo(query)
 }
