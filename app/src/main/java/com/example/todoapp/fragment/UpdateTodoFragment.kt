@@ -79,9 +79,10 @@ class UpdateTodoFragment : Fragment(R.layout.fragment_update_todo) {
         binding.fabUpdateTodo.setOnClickListener {
             val todoTitle = binding.etTodoTitle.text.toString().trim()
             val dateCreated = currentTodo.dateCreated
+            val dateUpdated = System.currentTimeMillis()
 
-            if(todoTitle.isNotEmpty()) {
-                val todo = Todo(currentTodo.id, todoTitle, importantLevel,dateCreated)
+            if (todoTitle.isNotEmpty()) {
+                val todo = Todo(currentTodo.id, todoTitle, importantLevel, dateCreated, dateUpdated)
                 todoViewModel.updateTodo(todo)
 
                 activity?.toast("Todo updated!")
@@ -100,7 +101,7 @@ class UpdateTodoFragment : Fragment(R.layout.fragment_update_todo) {
     }
 
     // create share Intent
-    private fun getShareIntent() : Intent {
+    private fun getShareIntent(): Intent {
         val args = UpdateTodoFragmentArgs.fromBundle(requireArguments())
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.setType("text/plain")
@@ -136,13 +137,13 @@ class UpdateTodoFragment : Fragment(R.layout.fragment_update_todo) {
         inflater.inflate(R.menu.update_todo_menu, menu)
 
         // showing the Share Menu Item dynamically
-        if(getShareIntent().resolveActivity(requireActivity().packageManager) == null) {
+        if (getShareIntent().resolveActivity(requireActivity().packageManager) == null) {
             menu.findItem(R.id.share_menu).isVisible = false
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.delete_menu -> deleteTodo()
             R.id.share_menu -> shareSuccess()
         }

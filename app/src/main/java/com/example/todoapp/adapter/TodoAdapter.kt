@@ -46,6 +46,7 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
         val currentTodo = differ.currentList[position]
         val sdf = SimpleDateFormat("dd/MM hh:mm")
         val todoDateCreated = Date(currentTodo.dateCreated)
+        val todoDateUpdated = Date(currentTodo.dateUpdated)
 
         // View item on RecyclerView
         holder.itemBinding.tvTodoTitle.text = currentTodo.todoTitle
@@ -56,7 +57,7 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
         } else {
             holder.itemBinding.imgImportantLevel.setImageResource(R.drawable.red_dot)
         }
-        holder.itemBinding.tvNoteDateCreated.text = sdf.format(todoDateCreated)
+        holder.itemBinding.tvNoteDateCreated.text = sdf.format(todoDateUpdated)
         holder.itemView.setOnClickListener {
             val direction = HomeFragmentDirections.actionHomeFragmentToUpdateTodoFragment(currentTodo)
             it.findNavController().navigate(direction)

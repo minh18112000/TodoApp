@@ -76,9 +76,8 @@ class NewTodoFragment : Fragment(R.layout.fragment_new_todo) {
         val todoDateCreated = System.currentTimeMillis()
 
         if (todoTitle.isNotEmpty()) {
-
             // create new item
-            val todo = Todo(0, todoTitle, todoImportantLevel, todoDateCreated)
+            val todo = Todo(0, todoTitle, todoImportantLevel, todoDateCreated, todoDateCreated)
             todoViewModel.addTodo(todo)
             Snackbar.make(
                 view,
