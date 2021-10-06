@@ -9,7 +9,8 @@ import kotlinx.coroutines.launch
 
 class TodoViewModel(
     app: Application,
-    private val todoRepository: TodoRepository) : AndroidViewModel(app){
+    private val todoRepository: TodoRepository
+) : AndroidViewModel(app) {
 
     fun addTodo(todo: Todo) = viewModelScope.launch {
         todoRepository.addTodo(todo)
@@ -44,4 +45,13 @@ class TodoViewModel(
     fun filterTodoByImportantLevelMedium() = todoRepository.filterTodoByImportantLevelMedium()
 
     fun filterTodoByImportantLevelHigh() = todoRepository.filterTodoByImportantLevelHigh()
+
+    fun filterTodoByDayAgo(currentTime: Long, ONE_DAY_MILLIS: Long) =
+        todoRepository.filterTodoByDayAgo(currentTime, ONE_DAY_MILLIS)
+
+    fun filterTodoByWeekAgo(currentTime: Long, ONE_WEEK_MILLIS: Long) =
+        todoRepository.filterTodoByWeekAgo(currentTime, ONE_WEEK_MILLIS)
+
+    fun filterTodoByMonthAgo(currentTime: Long, ONE_MONTH_MILLIS: Long) =
+        todoRepository.filterTodoByMonthAgo(currentTime, ONE_MONTH_MILLIS)
 }

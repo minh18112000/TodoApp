@@ -12,6 +12,11 @@ import com.example.todoapp.adapter.TodoAdapter
 import com.example.todoapp.databinding.FragmentHomeBinding
 import com.example.todoapp.model.Todo
 import com.example.todoapp.viewmodel.TodoViewModel
+import java.util.concurrent.TimeUnit
+
+private val ONE_DAY_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)
+private val ONE_WEEK_MILLIS = ONE_DAY_MILLIS*7
+private val ONE_MONTH_MILLIS = ONE_DAY_MILLIS*30
 
 class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextListener {
 
@@ -189,6 +194,30 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
         }
     }
 
+    private fun filterTodoByDayAgo() {
+        val currentTime = System.currentTimeMillis()
+        todoViewModel.filterTodoByDayAgo(currentTime, ONE_DAY_MILLIS)
+            .observe(viewLifecycleOwner, { todo ->
+                todoAdapter.differ.submitList(todo)
+            })
+    }
+
+    private fun filterTodoByWeekAgo() {
+        val currentTime = System.currentTimeMillis()
+        todoViewModel.filterTodoByWeekAgo(currentTime, ONE_WEEK_MILLIS)
+            .observe(viewLifecycleOwner, { todo ->
+                todoAdapter.differ.submitList(todo)
+            })
+    }
+
+    private fun filterTodoByMonthAgo() {
+        val currentTime = System.currentTimeMillis()
+        todoViewModel.filterTodoByMonthAgo(currentTime, ONE_MONTH_MILLIS)
+            .observe(viewLifecycleOwner, { todo ->
+                todoAdapter.differ.submitList(todo)
+            })
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.sort_by_created_date_newest_first -> sortTodoByCreatedDateNewestFirst()
@@ -198,6 +227,9 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
             R.id.sort_by_updated_date_newest_first -> sortTodoByUpdatedDateNewestFirst()
             R.id.sort_by_updated_date_oldest_first -> sortTodoByUpdatedDateOldestFirst()
             R.id.no_sort -> noSort()
+            R.id.filter_by_date_created_day_ago -> filterTodoByDayAgo()
+            R.id.filter_by_date_created_week_ago -> filterTodoByWeekAgo()
+            R.id.filter_by_date_created_month_ago -> filterTodoByMonthAgo()
         }
         return super.onOptionsItemSelected(item)
     }

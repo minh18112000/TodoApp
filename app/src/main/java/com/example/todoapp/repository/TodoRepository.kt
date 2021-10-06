@@ -32,4 +32,13 @@ class TodoRepository(private val db: TodoDatabase) {
     fun filterTodoByImportantLevelMedium() = db.getTodoDao().filterTodoByImportantLevelMedium()
 
     fun filterTodoByImportantLevelHigh() = db.getTodoDao().filterTodoByImportantLevelHigh()
+
+    fun filterTodoByDayAgo(currentTime: Long, ONE_DAY_MILLIS: Long) =
+        db.getTodoDao().filterTodoByDayAgo(currentTime, ONE_DAY_MILLIS)
+
+    fun filterTodoByWeekAgo(currentTime: Long, ONE_WEEK_MILLIS: Long) =
+        db.getTodoDao().filterTodoByWeekAgo(currentTime, ONE_WEEK_MILLIS)
+
+    fun filterTodoByMonthAgo(currentTime: Long, ONE_MONTH_MILLIS: Long) =
+        db.getTodoDao().filterTodoByMonthAgo(currentTime, ONE_MONTH_MILLIS)
 }

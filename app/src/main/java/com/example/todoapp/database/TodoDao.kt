@@ -1,5 +1,6 @@
 package com.example.todoapp.database
 
+import android.provider.ContactsContract
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.todoapp.model.Todo
@@ -58,5 +59,14 @@ interface TodoDao {
 
     @Query("SELECT * FROM todos WHERE importantLevel = 3")
     fun filterTodoByImportantLevelHigh(): LiveData<List<Todo>>
+
+    @Query("SELECT * FROM todos WHERE :currentTime - dateCreated < :ONE_DAY_MILLIS")
+    fun filterTodoByDayAgo(currentTime: Long, ONE_DAY_MILLIS: Long): LiveData<List<Todo>>
+
+    @Query("SELECT * FROM todos WHERE :currentTime - dateCreated < :ONE_WEEK_MILLIS")
+    fun filterTodoByWeekAgo(currentTime: Long, ONE_WEEK_MILLIS: Long): LiveData<List<Todo>>
+
+    @Query("SELECT * FROM todos WHERE :currentTime - dateCreated < :ONE_MONTH_MILLIS")
+    fun filterTodoByMonthAgo(currentTime: Long, ONE_MONTH_MILLIS: Long): LiveData<List<Todo>>
 
 }
