@@ -11,5 +11,6 @@ data class Todo(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val todoTitle: String,
-    val importantLevel: Int
+    val importantLevel: Int,
+    val dateCreated: Long
 ) : Parcelable

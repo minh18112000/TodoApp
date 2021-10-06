@@ -10,6 +10,8 @@ import com.example.todoapp.R
 import com.example.todoapp.databinding.TodoLayoutAdapterBinding
 import com.example.todoapp.fragment.HomeFragmentDirections
 import com.example.todoapp.model.Todo
+import java.text.SimpleDateFormat
+import java.util.*
 
 class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
@@ -42,6 +44,8 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         // get current item
         val currentTodo = differ.currentList[position]
+        val sdf = SimpleDateFormat("dd/MM hh:mm")
+        val todoDateCreated = Date(currentTodo.dateCreated)
 
         // View item on RecyclerView
         holder.itemBinding.tvTodoTitle.text = currentTodo.todoTitle
@@ -52,10 +56,12 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
         } else {
             holder.itemBinding.imgImportantLevel.setImageResource(R.drawable.red_dot)
         }
+        holder.itemBinding.tvNoteDateCreated.text = sdf.format(todoDateCreated)
         holder.itemView.setOnClickListener {
             val direction = HomeFragmentDirections.actionHomeFragmentToUpdateTodoFragment(currentTodo)
             it.findNavController().navigate(direction)
         }
+
     }
 
     override fun getItemCount(): Int {

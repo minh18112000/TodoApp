@@ -73,11 +73,12 @@ class NewTodoFragment : Fragment(R.layout.fragment_new_todo) {
     private fun saveTodo(view: View) {
         val todoTitle = binding.etTodoTitle.text.toString().trim()
         val todoImportantLevel = importantLevel
+        val todoDateCreated = System.currentTimeMillis()
 
         if (todoTitle.isNotEmpty()) {
 
             // create new item
-            val todo = Todo(0, todoTitle, todoImportantLevel)
+            val todo = Todo(0, todoTitle, todoImportantLevel, todoDateCreated)
             todoViewModel.addTodo(todo)
             Snackbar.make(
                 view,

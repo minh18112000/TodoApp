@@ -78,9 +78,10 @@ class UpdateTodoFragment : Fragment(R.layout.fragment_update_todo) {
 
         binding.fabUpdateTodo.setOnClickListener {
             val todoTitle = binding.etTodoTitle.text.toString().trim()
+            val dateCreated = currentTodo.dateCreated
 
             if(todoTitle.isNotEmpty()) {
-                val todo = Todo(currentTodo.id, todoTitle, importantLevel)
+                val todo = Todo(currentTodo.id, todoTitle, importantLevel,dateCreated)
                 todoViewModel.updateTodo(todo)
 
                 activity?.toast("Todo updated!")
