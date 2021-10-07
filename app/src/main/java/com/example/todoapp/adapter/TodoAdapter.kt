@@ -47,23 +47,28 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val currentTodo = differ.currentList[position]
-        val sdf = SimpleDateFormat("dd/MM hh:mm")
-//        val todoDateCreated = Date(currentTodo.dateCreated)
+        val formatDateCreated = SimpleDateFormat("MMM dd HH:mm")
+        val formatDueDate = SimpleDateFormat("EEE, MMM dd")
+
         // trans type long of date to "dd/MM hh:mm"
         val todoDateUpdated = Date(currentTodo.dateUpdated)
+        val todoDueDate = Date(currentTodo.dueDate)
 
         // View item on RecyclerView
         var title = holder.itemBinding.tvTodoTitle
         var importantLevel = holder.itemBinding.imgImportantLevel
         var dateCreated = holder.itemBinding.tvDateCreated
+        var dueDate = holder.itemBinding.todoRowChip
 
         title.text = currentTodo.todoTitle
+
         if (currentTodo.isCompleted) {
             // set strikethrough for textView
             title.paintFlags = title.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             title.setTypeface(null, Typeface.NORMAL)
             title.setTypeface(null, Typeface.ITALIC)
         }
+
         if (currentTodo.importantLevel == 1) {
             importantLevel.setImageResource(R.drawable.yellow_dot)
         } else if (currentTodo.importantLevel == 2) {
@@ -71,7 +76,10 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
         } else {
             importantLevel.setImageResource(R.drawable.red_dot)
         }
-        dateCreated.text = sdf.format(todoDateUpdated)
+
+        dateCreated.text = formatDateCreated.format(todoDateUpdated)
+
+        dueDate.text = formatDueDate.format(todoDueDate)
 
         holder.itemView.setOnClickListener {
             val direction =

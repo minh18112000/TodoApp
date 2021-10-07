@@ -14,5 +14,6 @@ data class Todo(
     val importantLevel: Int,
     val dateCreated: Long,
     val dateUpdated: Long,
-    var isCompleted: Boolean
+    var isCompleted: Boolean,
+    val dueDate: Long
 ) : Parcelable

@@ -82,7 +82,8 @@ class NewTodoFragment : Fragment(R.layout.fragment_new_todo) {
                 todoImportantLevel,
                 todoDateCreated,
                 todoDateCreated,
-                false
+                false,
+                todoDateCreated
             )
             todoViewModel.addTodo(todo)
             Snackbar.make(

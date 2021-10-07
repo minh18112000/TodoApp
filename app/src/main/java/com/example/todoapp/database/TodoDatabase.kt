@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.todoapp.model.Todo
 
 // declare the entities for the database and set the version number
-@Database(entities = [Todo::class], version = 2)
+@Database(entities = [Todo::class], version = 1)
 abstract class TodoDatabase : RoomDatabase() {
 
     abstract fun getTodoDao(): TodoDao

@@ -90,7 +90,8 @@ class UpdateTodoFragment : Fragment(R.layout.fragment_update_todo) {
                     importantLevel,
                     dateCreated,
                     dateUpdated,
-                    isCompleted
+                    isCompleted,
+                    dateCreated
                 )
                 todoViewModel.updateTodo(todo)
 
