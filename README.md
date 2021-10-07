@@ -8,5 +8,8 @@ In this app, I use:
 - SearchView
 - RecyclerView
 - Repository
+
 Feature in this app:
-- Add, update, delete note
+- Add, update, delete item
+- Search item by title
+- Share item
