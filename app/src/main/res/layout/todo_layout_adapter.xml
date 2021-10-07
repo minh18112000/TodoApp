@@ -6,23 +6,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="8dp">
 
-    <CheckBox
-        android:id="@+id/cbComplete"
+    <TextView
+        android:id="@+id/tvTodoTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:minWidth="0dp"
-        android:minHeight="0dp" />
-
-    <TextView
-        android:id="@+id/tvTodoTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/cbComplete"
-        app:layout_constraintBottom_toBottomOf="@id/cbComplete"
-        app:layout_constraintStart_toEndOf="@id/cbComplete"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:maxLines="1"

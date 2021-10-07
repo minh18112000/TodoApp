@@ -31,10 +31,39 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Done "
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/cbComplete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Important level "
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
                     <ImageView
                         android:id="@+id/imgImportantLevelOne"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
+                        android:layout_marginStart="20dp"
                         android:background="@drawable/yellow_dot" />
 
                     <ImageView
