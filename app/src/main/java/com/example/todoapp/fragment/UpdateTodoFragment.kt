@@ -43,7 +43,9 @@ class UpdateTodoFragment : Fragment(R.layout.fragment_update_todo) {
 
         // set title and body of item is updated
         binding.etTodoTitle.setText(currentTodo.todoTitle)
-
+        if (currentTodo.isCompleted) {
+            binding.cbComplete.isChecked = true
+        }
         var importantLevel: Int = currentTodo.importantLevel
 
         if (importantLevel == 1) {
@@ -53,7 +55,6 @@ class UpdateTodoFragment : Fragment(R.layout.fragment_update_todo) {
         } else {
             binding.imgImportantLevelThree.setImageResource(R.drawable.ic_done)
         }
-
 
         binding.imgImportantLevelOne.setOnClickListener {
             binding.imgImportantLevelOne.setImageResource(R.drawable.ic_done)
@@ -80,9 +81,17 @@ class UpdateTodoFragment : Fragment(R.layout.fragment_update_todo) {
             val todoTitle = binding.etTodoTitle.text.toString().trim()
             val dateCreated = currentTodo.dateCreated
             val dateUpdated = System.currentTimeMillis()
+            val isCompleted = binding.cbComplete.isChecked
 
             if (todoTitle.isNotEmpty()) {
-                val todo = Todo(currentTodo.id, todoTitle, importantLevel, dateCreated, dateUpdated)
+                val todo = Todo(
+                    currentTodo.id,
+                    todoTitle,
+                    importantLevel,
+                    dateCreated,
+                    dateUpdated,
+                    isCompleted
+                )
                 todoViewModel.updateTodo(todo)
 
                 activity?.toast("Todo updated!")

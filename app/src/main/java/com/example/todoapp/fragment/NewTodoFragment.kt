@@ -1,7 +1,6 @@
 package com.example.todoapp.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -77,7 +76,14 @@ class NewTodoFragment : Fragment(R.layout.fragment_new_todo) {
 
         if (todoTitle.isNotEmpty()) {
             // create new item
-            val todo = Todo(0, todoTitle, todoImportantLevel, todoDateCreated, todoDateCreated)
+            val todo = Todo(
+                0,
+                todoTitle,
+                todoImportantLevel,
+                todoDateCreated,
+                todoDateCreated,
+                false
+            )
             todoViewModel.addTodo(todo)
             Snackbar.make(
                 view,

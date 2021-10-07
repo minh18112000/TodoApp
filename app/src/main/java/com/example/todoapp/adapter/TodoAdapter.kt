@@ -1,5 +1,6 @@
 package com.example.todoapp.adapter
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
@@ -15,8 +16,13 @@ import java.util.*
 
 class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
+    private var _binding: TodoLayoutAdapterBinding? = null
+    private val binding
+        get() = _binding!!
+
     class TodoViewHolder(val itemBinding: TodoLayoutAdapterBinding) :
         RecyclerView.ViewHolder(itemBinding.root)
+
 
     private val differCallback = object : DiffUtil.ItemCallback<Todo>() {
         override fun areItemsTheSame(oldItem: Todo, newItem: Todo): Boolean {
@@ -32,34 +38,41 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
     val differ = AsyncListDiffer(this, differCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
-        return TodoViewHolder(
-            TodoLayoutAdapterBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+        _binding =
+            TodoLayoutAdapterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+        return TodoViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
-        // get current item
         val currentTodo = differ.currentList[position]
         val sdf = SimpleDateFormat("dd/MM hh:mm")
-        val todoDateCreated = Date(currentTodo.dateCreated)
+//        val todoDateCreated = Date(currentTodo.dateCreated)
+        // trans type long of date to "dd/MM hh:mm"
         val todoDateUpdated = Date(currentTodo.dateUpdated)
 
         // View item on RecyclerView
-        holder.itemBinding.tvTodoTitle.text = currentTodo.todoTitle
-        if (currentTodo.importantLevel == 1) {
-            holder.itemBinding.imgImportantLevel.setImageResource(R.drawable.yellow_dot)
-        } else if (currentTodo.importantLevel == 2) {
-            holder.itemBinding.imgImportantLevel.setImageResource(R.drawable.blue_dot)
-        } else {
-            holder.itemBinding.imgImportantLevel.setImageResource(R.drawable.red_dot)
+        var title = holder.itemBinding.tvTodoTitle
+        var importantLevel = holder.itemBinding.imgImportantLevel
+        var dateCreated = holder.itemBinding.tvDateCreated
+
+        title.text = currentTodo.todoTitle
+        if (currentTodo.isCompleted) {
+            // set strikethrough for textView
+            title.paintFlags = title.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         }
-        holder.itemBinding.tvNoteDateCreated.text = sdf.format(todoDateUpdated)
+        if (currentTodo.importantLevel == 1) {
+            importantLevel.setImageResource(R.drawable.yellow_dot)
+        } else if (currentTodo.importantLevel == 2) {
+            importantLevel.setImageResource(R.drawable.blue_dot)
+        } else {
+            importantLevel.setImageResource(R.drawable.red_dot)
+        }
+        dateCreated.text = sdf.format(todoDateUpdated)
+
         holder.itemView.setOnClickListener {
-            val direction = HomeFragmentDirections.actionHomeFragmentToUpdateTodoFragment(currentTodo)
+            val direction =
+                HomeFragmentDirections.actionHomeFragmentToUpdateTodoFragment(currentTodo)
             it.findNavController().navigate(direction)
         }
 

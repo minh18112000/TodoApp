@@ -39,6 +39,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
             false
         )
 
+        // get viewModel from mainActivity
         todoViewModel = (activity as MainActivity).todoViewModel
 
         filterTodoByImportantLevelLow()
@@ -46,6 +47,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
         filterTodoByImportantLevelHigh()
 
         setHasOptionsMenu(true)
+
         return binding.root
     }
 
