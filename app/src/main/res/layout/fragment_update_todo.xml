@@ -68,12 +68,12 @@
         android:id="@+id/tvIsCompleted"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="Done "
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/tvImportantLevel"
         app:layout_constraintStart_toStartOf="@id/tvImportantLevel"
-        android:layout_marginTop="20dp"/>
+        app:layout_constraintTop_toBottomOf="@id/tvImportantLevel" />
 
     <CheckBox
         android:id="@+id/cbComplete"
@@ -81,10 +81,87 @@
         android:layout_height="wrap_content"
         android:minWidth="0dp"
         android:minHeight="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/tvIsCompleted"
         app:layout_constraintStart_toEndOf="@id/tvIsCompleted"
-        app:layout_constraintTop_toTopOf="@id/tvIsCompleted"
-        app:layout_constraintBottom_toBottomOf="@id/tvIsCompleted"/>
+        app:layout_constraintTop_toTopOf="@id/tvIsCompleted" />
 
+    <ImageButton
+        android:id="@+id/today_calendar_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="@id/tvIsCompleted"
+        app:layout_constraintTop_toBottomOf="@+id/tvIsCompleted"
+        app:srcCompat="@drawable/ic_calendar"
+        tools:ignore="VectorDrawableCompat" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/tomorrow_chip"
+        android:layout_width="269dp"
+        android:layout_height="41dp"
+        android:text="Tomorrow"
+        app:chipIcon="@drawable/ic_wb_sunny"
+        app:layout_constraintEnd_toEndOf="@+id/next_week_chip"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/next_week_chip"
+        app:layout_constraintTop_toBottomOf="@+id/today_chip" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/next_week_chip"
+        android:layout_width="272dp"
+        android:layout_height="41dp"
+        android:background="@android:color/transparent"
+        android:text="Next Week"
+        app:chipIcon="@drawable/ic_next_week"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tomorrow_chip" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/today_chip"
+        android:layout_width="267dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="2dp"
+        android:text="Today"
+        app:chipIcon="@drawable/ic_today"
+        app:layout_constraintEnd_toEndOf="@+id/tomorrow_chip"
+        app:layout_constraintStart_toStartOf="@+id/tomorrow_chip"
+        app:layout_constraintTop_toBottomOf="@+id/tvDueDate" />
+
+    <TextView
+        android:id="@+id/tvDueDate"
+        android:layout_width="244dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="48dp"
+        android:gravity="center_horizontal"
+        android:text="Due date"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/today_calendar_button" />
+
+    <CalendarView
+        android:id="@+id/calendar_view"
+        android:layout_width="318dp"
+        android:layout_height="296dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/next_week_chip"
+        app:layout_constraintVertical_bias="0.16000003" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/calendar_group"
+        android:layout_width="280dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:constraint_referenced_ids="calendar_view,next_week_chip,tomorrow_chip,today_chip,tvDueDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabUpdateTodo"

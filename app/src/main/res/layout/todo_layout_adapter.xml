@@ -6,36 +6,46 @@
     android:layout_height="wrap_content"
     android:padding="8dp">
 
-        <TextView
-            android:id="@+id/tvTodoTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="a" />
+    <TextView
+        android:id="@+id/tvTodoTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="a" />
 
-        <ImageView
-            android:id="@+id/imgImportantLevel"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/yellow_dot"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.chip.Chip
+        android:id="@+id/todo_row_chip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Today"
+        app:chipIcon="@drawable/ic_today"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTodoTitle" />
 
-        <TextView
-            android:id="@+id/tvDateCreated"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date created"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imgImportantLevel" />
+    <ImageView
+        android:id="@+id/imgImportantLevel"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/yellow_dot"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDateCreated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date created"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgImportantLevel" />
 </androidx.constraintlayout.widget.ConstraintLayout>
