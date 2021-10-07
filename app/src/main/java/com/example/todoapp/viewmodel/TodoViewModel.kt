@@ -54,4 +54,8 @@ class TodoViewModel(
 
     fun filterTodoByMonthAgo(currentTime: Long, ONE_MONTH_MILLIS: Long) =
         todoRepository.filterTodoByMonthAgo(currentTime, ONE_MONTH_MILLIS)
+
+    fun filterTodoByIsCompleted() = todoRepository.filterTodoByIsCompleted()
+
+    fun filterTodoByIsNotCompleted() = todoRepository.filterTodoByIsNotCompleted()
 }

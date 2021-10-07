@@ -54,11 +54,21 @@
 
         <menu>
             <item
+                android:id="@+id/filter_by_is_completed"
+                android:title="Done" />
+
+            <item
+                android:id="@+id/filter_by_is_not_completed"
+                android:title="Not done" />
+
+            <item
                 android:id="@+id/filter_by_date_created_day_ago"
                 android:title="A day ago" />
+
             <item
                 android:id="@+id/filter_by_date_created_week_ago"
                 android:title="A week ago" />
+
             <item
                 android:id="@+id/filter_by_date_created_month_ago"
                 android:title="A month ago" />

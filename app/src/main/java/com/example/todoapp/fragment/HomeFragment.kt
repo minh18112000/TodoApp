@@ -220,6 +220,19 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
             })
     }
 
+    private fun filterTodoByIsCompleted() {
+        todoViewModel.filterTodoByIsCompleted()
+            .observe(viewLifecycleOwner, { todo ->
+                todoAdapter.differ.submitList(todo)
+            })
+    }
+
+    private fun filterTodoByIsNotCompleted() {
+        todoViewModel.filterTodoByIsNotCompleted()
+            .observe(viewLifecycleOwner, { todo ->
+                todoAdapter.differ.submitList(todo)
+            })
+    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.sort_by_created_date_newest_first -> sortTodoByCreatedDateNewestFirst()
@@ -232,6 +245,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
             R.id.filter_by_date_created_day_ago -> filterTodoByDayAgo()
             R.id.filter_by_date_created_week_ago -> filterTodoByWeekAgo()
             R.id.filter_by_date_created_month_ago -> filterTodoByMonthAgo()
+            R.id.filter_by_is_completed -> filterTodoByIsCompleted()
+            R.id.filter_by_is_not_completed -> filterTodoByIsNotCompleted()
         }
         return super.onOptionsItemSelected(item)
     }

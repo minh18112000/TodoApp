@@ -69,4 +69,10 @@ interface TodoDao {
     @Query("SELECT * FROM todos WHERE :currentTime - dateCreated < :ONE_MONTH_MILLIS")
     fun filterTodoByMonthAgo(currentTime: Long, ONE_MONTH_MILLIS: Long): LiveData<List<Todo>>
 
+    @Query("SELECT * FROM todos WHERE isCompleted == 1")
+    fun filterTodoByIsCompleted(): LiveData<List<Todo>>
+
+    @Query("SELECT * FROM todos WHERE isCompleted == 0")
+    fun filterTodoByIsNotCompleted(): LiveData<List<Todo>>
+
 }

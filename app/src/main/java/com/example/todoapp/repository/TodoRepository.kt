@@ -41,4 +41,8 @@ class TodoRepository(private val db: TodoDatabase) {
 
     fun filterTodoByMonthAgo(currentTime: Long, ONE_MONTH_MILLIS: Long) =
         db.getTodoDao().filterTodoByMonthAgo(currentTime, ONE_MONTH_MILLIS)
+
+    fun filterTodoByIsCompleted() = db.getTodoDao().filterTodoByIsCompleted()
+
+    fun filterTodoByIsNotCompleted() = db.getTodoDao().filterTodoByIsNotCompleted()
 }
