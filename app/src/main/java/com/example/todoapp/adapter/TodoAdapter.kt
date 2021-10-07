@@ -1,6 +1,7 @@
 package com.example.todoapp.adapter
 
 import android.graphics.Paint
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
@@ -60,6 +61,8 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
         if (currentTodo.isCompleted) {
             // set strikethrough for textView
             title.paintFlags = title.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            title.setTypeface(null, Typeface.NORMAL)
+            title.setTypeface(null, Typeface.ITALIC)
         }
         if (currentTodo.importantLevel == 1) {
             importantLevel.setImageResource(R.drawable.yellow_dot)
