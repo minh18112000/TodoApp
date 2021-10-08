@@ -13,3 +13,4 @@ Feature in this app:
 - Add, update, delete item
 - Search item by title
 - Share item
+- Sort by title, created date, updated date
