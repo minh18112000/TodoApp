@@ -1,5 +1,6 @@
 package com.example.todoapp.fragment
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +13,7 @@ import com.example.todoapp.databinding.FragmentUpdateTodoBinding
 import com.example.todoapp.model.Todo
 import com.example.todoapp.toast
 import com.example.todoapp.viewmodel.TodoViewModel
+import java.util.*
 
 class UpdateTodoFragment : Fragment(R.layout.fragment_update_todo) {
 
@@ -21,6 +23,7 @@ class UpdateTodoFragment : Fragment(R.layout.fragment_update_todo) {
 
     private lateinit var currentTodo: Todo
     private lateinit var todoViewModel: TodoViewModel
+    private var dueDate = 0L
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,6 +80,25 @@ class UpdateTodoFragment : Fragment(R.layout.fragment_update_todo) {
             importantLevel = 3
         }
 
+        var count = 0
+        binding.todayCalendarButton.setOnClickListener {
+            if(count%2 == 0) {
+                binding.calendarGroup.visibility = View.VISIBLE
+                count = 1
+            } else {
+                binding.calendarGroup.visibility = View.GONE
+                count = 0
+            }
+        }
+
+        val calendar = Calendar.getInstance()
+
+        binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
+            calendar.clear()
+            calendar.set(year, month, dayOfMonth)
+            dueDate = calendar.timeInMillis
+        }
+
         binding.fabUpdateTodo.setOnClickListener {
             val todoTitle = binding.etTodoTitle.text.toString().trim()
             val dateCreated = currentTodo.dateCreated
@@ -91,7 +113,7 @@ class UpdateTodoFragment : Fragment(R.layout.fragment_update_todo) {
                     dateCreated,
                     dateUpdated,
                     isCompleted,
-                    dateCreated
+                    dueDate
                 )
                 todoViewModel.updateTodo(todo)
 
@@ -142,6 +164,7 @@ class UpdateTodoFragment : Fragment(R.layout.fragment_update_todo) {
         }.create().show()
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.update_todo_menu, menu)

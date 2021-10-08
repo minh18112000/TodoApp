@@ -1,5 +1,7 @@
 package com.example.todoapp.adapter
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.view.LayoutInflater
@@ -14,6 +16,9 @@ import com.example.todoapp.fragment.HomeFragmentDirections
 import com.example.todoapp.model.Todo
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
+
+private val ONE_DAY_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)
 
 class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
@@ -45,6 +50,7 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
         return TodoViewHolder(binding)
     }
 
+    @SuppressLint("SimpleDateFormat")
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val currentTodo = differ.currentList[position]
         val formatDateCreated = SimpleDateFormat("MMM dd HH:mm")
@@ -55,10 +61,10 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
         val todoDueDate = Date(currentTodo.dueDate)
 
         // View item on RecyclerView
-        var title = holder.itemBinding.tvTodoTitle
-        var importantLevel = holder.itemBinding.imgImportantLevel
-        var dateCreated = holder.itemBinding.tvDateCreated
-        var dueDate = holder.itemBinding.todoRowChip
+        val title = holder.itemBinding.tvTodoTitle
+        val importantLevel = holder.itemBinding.imgImportantLevel
+        val dateCreated = holder.itemBinding.tvDateCreated
+        val dueDate = holder.itemBinding.todoRowChip
 
         title.text = currentTodo.todoTitle
 
@@ -79,7 +85,14 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
         dateCreated.text = formatDateCreated.format(todoDateUpdated)
 
-        dueDate.text = formatDueDate.format(todoDueDate)
+        if (currentTodo.dueDate != 0L) {
+            dueDate.text = formatDueDate.format(todoDueDate)
+            if (currentTodo.dueDate + ONE_DAY_MILLIS < System.currentTimeMillis()) {
+                dueDate.setTextColor(Color.parseColor("#FF0000"))
+            }
+        } else {
+            dueDate.text = "No due"
+        }
 
         holder.itemView.setOnClickListener {
             val direction =

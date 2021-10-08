@@ -1,6 +1,7 @@
 package com.example.todoapp.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -11,6 +12,7 @@ import com.example.todoapp.model.Todo
 import com.example.todoapp.toast
 import com.example.todoapp.viewmodel.TodoViewModel
 import com.google.android.material.snackbar.Snackbar
+import java.util.*
 
 class NewTodoFragment : Fragment(R.layout.fragment_new_todo) {
 
@@ -22,7 +24,7 @@ class NewTodoFragment : Fragment(R.layout.fragment_new_todo) {
     private lateinit var todoViewModel: TodoViewModel
     private lateinit var mView: View
     private var importantLevel: Int = 1
-
+    private var dueDate = 0L
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mView = view
@@ -64,6 +66,25 @@ class NewTodoFragment : Fragment(R.layout.fragment_new_todo) {
             importantLevel = 3
         }
 
+        var count = 0
+        binding.todayCalendarButton.setOnClickListener {
+            if (count % 2 == 0) {
+                binding.calendarGroup.visibility = View.VISIBLE
+                count = 1
+            } else {
+                binding.calendarGroup.visibility = View.GONE
+                count = 0
+            }
+        }
+
+        val calendar = Calendar.getInstance()
+
+        binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
+            calendar.clear()
+            calendar.set(year, month, dayOfMonth)
+            dueDate = calendar.timeInMillis
+        }
+
         setHasOptionsMenu(true)
 
         return binding.root
@@ -74,6 +95,7 @@ class NewTodoFragment : Fragment(R.layout.fragment_new_todo) {
         val todoImportantLevel = importantLevel
         val todoDateCreated = System.currentTimeMillis()
 
+
         if (todoTitle.isNotEmpty()) {
             // create new item
             val todo = Todo(
@@ -83,7 +105,7 @@ class NewTodoFragment : Fragment(R.layout.fragment_new_todo) {
                 todoDateCreated,
                 todoDateCreated,
                 false,
-                todoDateCreated
+                dueDate
             )
             todoViewModel.addTodo(todo)
             Snackbar.make(
