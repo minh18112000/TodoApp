@@ -82,7 +82,7 @@ class UpdateTodoFragment : Fragment(R.layout.fragment_update_todo) {
 
         var count = 0
         binding.todayCalendarButton.setOnClickListener {
-            if(count%2 == 0) {
+            if (count % 2 == 0) {
                 binding.calendarGroup.visibility = View.VISIBLE
                 count = 1
             } else {

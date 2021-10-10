@@ -15,8 +15,8 @@ import com.example.todoapp.viewmodel.TodoViewModel
 import java.util.concurrent.TimeUnit
 
 private val ONE_DAY_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)
-private val ONE_WEEK_MILLIS = ONE_DAY_MILLIS*7
-private val ONE_MONTH_MILLIS = ONE_DAY_MILLIS*30
+private val ONE_WEEK_MILLIS = ONE_DAY_MILLIS * 7
+private val ONE_MONTH_MILLIS = ONE_DAY_MILLIS * 30
 
 class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextListener {
 
@@ -63,7 +63,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
     }
 
     private fun setUpRecyclerView() {
-        todoAdapter = TodoAdapter()
+        todoAdapter = TodoAdapter(activity as MainActivity)
 
         binding.recyclerView.apply {
             layoutManager = StaggeredGridLayoutManager(
@@ -233,6 +233,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
                 todoAdapter.differ.submitList(todo)
             })
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.sort_by_created_date_newest_first -> sortTodoByCreatedDateNewestFirst()

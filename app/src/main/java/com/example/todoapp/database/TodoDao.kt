@@ -1,6 +1,5 @@
 package com.example.todoapp.database
 
-import android.provider.ContactsContract
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.todoapp.model.Todo

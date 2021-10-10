@@ -1,7 +1,6 @@
 package com.example.todoapp.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -13,6 +12,7 @@ import com.example.todoapp.toast
 import com.example.todoapp.viewmodel.TodoViewModel
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
+
 
 class NewTodoFragment : Fragment(R.layout.fragment_new_todo) {
 

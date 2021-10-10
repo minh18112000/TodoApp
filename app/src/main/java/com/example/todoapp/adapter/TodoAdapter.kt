@@ -10,21 +10,24 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todoapp.MainActivity
 import com.example.todoapp.R
 import com.example.todoapp.databinding.TodoLayoutAdapterBinding
 import com.example.todoapp.fragment.HomeFragmentDirections
 import com.example.todoapp.model.Todo
 import java.text.SimpleDateFormat
 import java.util.*
+
 import java.util.concurrent.TimeUnit
 
 private val ONE_DAY_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)
 
-class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
+class TodoAdapter(val activity: MainActivity) : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
     private var _binding: TodoLayoutAdapterBinding? = null
     private val binding
         get() = _binding!!
+    private var mainActivity: MainActivity = activity
 
     class TodoViewHolder(val itemBinding: TodoLayoutAdapterBinding) :
         RecyclerView.ViewHolder(itemBinding.root)
@@ -44,8 +47,11 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
     val differ = AsyncListDiffer(this, differCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
-        _binding =
-            TodoLayoutAdapterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        _binding = TodoLayoutAdapterBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
 
         return TodoViewHolder(binding)
     }
@@ -82,7 +88,6 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
         } else {
             importantLevel.setImageResource(R.drawable.red_dot)
         }
-
         dateCreated.text = formatDateCreated.format(todoDateUpdated)
 
         if (currentTodo.dueDate != 0L) {
@@ -93,13 +98,16 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
         } else {
             dueDate.text = "No due"
         }
-
+        if (currentTodo.dueDate + ONE_DAY_MILLIS - System.currentTimeMillis() <= ONE_DAY_MILLIS
+            && currentTodo.dueDate + ONE_DAY_MILLIS >= System.currentTimeMillis()
+        ) {
+            mainActivity.sendNotification("Task is coming", currentTodo.todoTitle)
+        }
         holder.itemView.setOnClickListener {
             val direction =
                 HomeFragmentDirections.actionHomeFragmentToUpdateTodoFragment(currentTodo)
             it.findNavController().navigate(direction)
         }
-
     }
 
     override fun getItemCount(): Int {
